@@ -43,8 +43,13 @@ module.exports = {
 	.setLabel('プライバシーポリシー')
 	.setURL('https://github.com/hr951/profile-bot/blob/main/privacypolicy.md')
 	.setStyle(ButtonStyle.Link);
+    
+    const code = new ButtonBuilder()
+	.setLabel('ソースコード')
+	.setURL('https://github.com/hr951/profile-bot/tree/main')
+	.setStyle(ButtonStyle.Link);
 			
-	await interaction.reply({ embeds: [embed] ,components: [new ActionRowBuilder().addComponents(terms, privacypolicy)] })
+	await interaction.reply({ embeds: [embed] ,components: [new ActionRowBuilder().addComponents(terms, privacypolicy, code)] })
 
 	},
 };
