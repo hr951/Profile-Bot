@@ -1,0 +1,32 @@
+{
+  "name": "Discord-js-v14-template-for-glitch",
+  "version": "14",
+  "description": "It is template of Discord.js v14.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@napi-rs/canvas": "^0.1.54",
+    "canvas": "^2.11.2",
+    "canvas-constructor": "^7.0.2",
+    "discord.js": "^14.15.2",
+    "fontfaceobserver": "^2.3.0",
+    "node-fetch": "^2.7.0",
+    "skia-canvas": "^1.0.2",
+    "snekfetch": "^4.0.4",
+    "undici": "^6.19.8"
+  },
+  "engines": {
+    "node": "16.x"
+  },
+  "repository": {
+    "url": "https://glitch.com/edit/#!/discord-js-v14-template-glitch"
+  },
+  "license": "MIT",
+  "keywords": [
+    "node",
+    "glitch",
+    "template"
+  ]
+}
