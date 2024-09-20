@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, ButtonBuilder, ActionRowBuilder, ButtonStyle } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -10,15 +10,41 @@ module.exports = {
 		const thumbnail = interaction.client.user.displayAvatarURL();
 
 		const embed = new EmbedBuilder()
-            .setDescription(`${interaction.client.ws.ping}msで稼働しています。\n\nアイコン等画像は使用許可をとっていません。\nこのサーバー以外でこの画像を使用することはないようにお願いします。\n使用された場合<@962670040795201557>は一切の責任を負いません。ご了承ください。`)
-			.setColor("#0097ff")
+            .setDescription(`${interaction.client.ws.ping}msで稼働しています。`)
+            .addFields(
+              {
+                name: "profile",
+                value: `⭕このコマンドは使用可能です。`,
+                inline: true
+              },
+              {
+                name: "ping",
+                value: `⭕このコマンドは使用可能です。`,
+                inline: true
+              },
+              {
+                name: "info",
+                value: `⭕このコマンドは使用可能です。`,
+                inline: true
+              })
+			    .setColor("#0097ff")
       		.setFooter({
         			text: "Made by hi_ro951",
         			iconURL: thumbnail,
       					})
 			.setTimestamp();
+    
+    const terms = new ButtonBuilder()
+	.setLabel('利用規約')
+	.setURL('https://github.com/hr951/profile-bot/blob/main/terms.md')
+	.setStyle(ButtonStyle.Link);
+    
+    const privacypolicy = new ButtonBuilder()
+	.setLabel('プライバシーポリシー')
+	.setURL('https://github.com/hr951/profile-bot/blob/main/privacypolicy.md')
+	.setStyle(ButtonStyle.Link);
 			
-	await interaction.reply({ embeds: [embed] })
+	await interaction.reply({ embeds: [embed] ,components: [new ActionRowBuilder().addComponents(terms, privacypolicy)] })
 
 	},
 };
