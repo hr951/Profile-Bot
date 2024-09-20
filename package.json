@@ -10,7 +10,7 @@
     "@napi-rs/canvas": "^0.1.54",
     "canvas": "^2.11.2",
     "canvas-constructor": "^7.0.2",
-    "discord.js": "^14.15.2",
+    "discord.js": "^14.13.0",
     "fontfaceobserver": "^2.3.0",
     "node-fetch": "^2.7.0",
     "skia-canvas": "^1.0.2",
