@@ -16,7 +16,7 @@ const client = new Client({
   ]
   });
 
-const token = "token"
+const token = process.env.DISCORD_BOT_TOKEN;
 
 client.on('ready', () => {
   setInterval(() => {
@@ -49,6 +49,14 @@ for (const file of commandFiles) {
 }
 
 client.on('interactionCreate', async interaction => {
+  if (interaction.isButton()){
+    if(interaction.user.id === interaction.customId){
+      await interaction.message.delete();
+    } else {
+      await interaction.reply({content: "このプロフィールの作者ではありません。", ephemeral: true })
+    }
+  }
+  
   if (!interaction.isChatInputCommand()) return;
 
   const command = interaction.client.commands.get(interaction.commandName);
