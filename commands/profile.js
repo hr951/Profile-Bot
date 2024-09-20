@@ -1,6 +1,6 @@
-const { SlashCommandBuilder, EmbedBuilder , AttachmentBuilder } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder , AttachmentBuilder, ButtonBuilder, ActionRowBuilder, ButtonStyle } = require('discord.js');
 const { registerFont, createCanvas, loadImage } = require('canvas');
-registerFont('./font/Nosutaru-dotMPlusH-10-Regular.ttf', { family: 'mojang' });
+registerFont('./Nosutaru-dotMPlusH-10-Regular.ttf', { family: 'mojang' });
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -87,7 +87,7 @@ module.exports = {
       return;
     }
 
-    //await interaction.reply("画像を生成中です...")
+    await interaction.reply({content: "画像を生成しています...", ephemeral: true })
 
     const url_bg = 'https://github.com/hr951/profile-bot/blob/main/images/background.png?raw=true';
     const backgroundImage = await loadImage(url_bg);
@@ -226,15 +226,28 @@ module.exports = {
       }
 
       const attachment = new AttachmentBuilder(canvas.toBuffer('image/png'), { name: mcid + "_stats.png" });
+      
+      const Button = new ButtonBuilder()
+		.setCustomId(`${interaction.user.id}`)
+		.setStyle(ButtonStyle.Danger)
+		.setLabel("削除する")
+		.setEmoji("🗑️");
+      
       //await interaction.editReply("画像を生成しました！");
-      await interaction.channel.send({ files: [attachment] });
+      await interaction.channel.send({ files: [attachment] , components: [new ActionRowBuilder() .setComponents(Button)] });
       
     } catch (error) {
       // エラーが発生したらコンソールに出力
       console.error(error);
+      
+      const Button = new ButtonBuilder()
+		.setCustomId(`${interaction.user.id}`)
+		.setStyle(ButtonStyle.Danger)
+		.setLabel("削除する")
 
       // エラーメッセージを返信
       //await interaction.editReply("画像の生成に失敗しました。");
+      await interaction.channel.send({content: "画像の生成に失敗しました。", components: [new ActionRowBuilder() .setComponents(Button)] })
     }
   },
 
