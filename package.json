@@ -15,7 +15,9 @@
     "node-fetch": "^2.7.0",
     "skia-canvas": "^1.0.2",
     "snekfetch": "^4.0.4",
-    "undici": "^6.19.8"
+    "undici": "^6.19.8",
+    "svg2img": "^0.9.4",
+    "svg-to-png": "^4.0.0"
   },
   "engines": {
     "node": "16.x"
