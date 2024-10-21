@@ -1,4 +1,8 @@
 const { SlashCommandBuilder, EmbedBuilder , AttachmentBuilder, ButtonBuilder, ActionRowBuilder, ButtonStyle } = require('discord.js');
+const fs = require('fs');
+const fetch = require("node-fetch")
+const svg2img = require('svg2img');
+const svgToPng = require('svg-to-png');
 const { registerFont, createCanvas, loadImage } = require('canvas');
 registerFont('./Nosutaru-dotMPlusH-10-Regular.ttf', { family: 'mojang' });
 
@@ -65,10 +69,14 @@ module.exports = {
     ),
 
   async execute(interaction) {
+    
+    interaction.reply({content:"画像を生成しています...\nエラーが発生した場合は画像が生成されません。", ephemeral: true})
+    
+    const interact = interaction.channel;
 
     const mcid = interaction.options.getString('minecraft-id');
     const comment = interaction.options.getString('comment');
-    const image =interaction.options.getAttachment("image");
+    const image = interaction.options.getAttachment("image");
     const sns1 = interaction.options.getString("sns1");
     const sns2 = interaction.options.getString("sns2");
     const sns3 = interaction.options.getString("sns3");
@@ -81,20 +89,37 @@ module.exports = {
     const x = await loadImage('https://github.com/hr951/profile-bot/blob/main/images/twitter_icon.png?raw=true');
     const yt = await loadImage('https://github.com/hr951/profile-bot/blob/main/images/youtube_icon.png?raw=true');
     const sc = await loadImage('https://github.com/hr951/profile-bot/blob/main/images/scratch_icon.png?raw=true');
-
-    if (!image.height && !image.width) {
-      await interaction.reply("有効な画像ではありません。");
-      return;
-    }
-
-    await interaction.reply({content: "画像を生成しています...", ephemeral: true })
-
+    
+    var svg_check = false;
+    
     const url_bg = 'https://github.com/hr951/profile-bot/blob/main/images/background.png?raw=true';
     const backgroundImage = await loadImage(url_bg);
 
     const canvas = createCanvas(1920, 1080);
         const context = canvas.getContext('2d');
         context.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+
+    if (!image.height && !image.width) {
+      try{
+      const svg = await fetch(image.url).then(res => res.text());
+      svg2img(svg, (error, buffer) => {
+        loadImage(buffer).then((img) => {
+        var height = img.height/450;
+        var width = img.width/height;
+          context.drawImage(img, 1485-width/2, 540, width, 450);
+          context.strokeStyle = '#0099ff';
+	        context.strokeRect(1485-width/2, 540, width, 450);
+        var svg_check = true;
+        })
+              })
+      } catch (error) {
+        await interact.send({content:"有効な画像ではありません。", ephemeral: true});
+        return;
+      }
+    }
+
+    const make_img = await interact.send({content: "画像を生成しています...", ephemeral: true });
+
 
         if(sns1){
         if(sns1 === "ig"){
@@ -147,12 +172,22 @@ module.exports = {
     try {
 
       try {
+        if(!svg_check){
         const img = await loadImage(`${image.url}?v=`);
         var height = image.height/450;
         var width = image.width/height;
           context.drawImage(img, 1485-width/2, 540, width, 450);
           context.strokeStyle = '#0099ff';
 	        context.strokeRect(1485-width/2, 540, width, 450);
+        } else if(svg_check){
+        /*var img = await loadImage(global.png);
+        console.log(img)
+        var height = image.height/450;
+        var width = image.width/height;
+          context.drawImage(img, 1485-width/2, 540, width, 450);
+          context.strokeStyle = '#0099ff';
+	        context.strokeRect(1485-width/2, 540, width, 450);*/
+        }
         } catch (error) {
           try {
         const img = await loadImage('https://cdn2.scratch.mit.edu/get_image/project/1042518320_480x360.png?v=1719485760')
@@ -234,7 +269,7 @@ module.exports = {
 		.setEmoji("🗑️");
       
       //await interaction.editReply("画像を生成しました！");
-      await interaction.channel.send({ files: [attachment] , components: [new ActionRowBuilder() .setComponents(Button)] });
+      await make_img.edit({ content:"", files: [attachment] , components: [new ActionRowBuilder() .setComponents(Button)] });
       
     } catch (error) {
       // エラーが発生したらコンソールに出力
@@ -247,7 +282,7 @@ module.exports = {
 
       // エラーメッセージを返信
       //await interaction.editReply("画像の生成に失敗しました。");
-      await interaction.channel.send({content: "画像の生成に失敗しました。", components: [new ActionRowBuilder() .setComponents(Button)] })
+      await make_img.edit({content: "画像の生成に失敗しました。", components: [new ActionRowBuilder() .setComponents(Button)] })
     }
   },
 
