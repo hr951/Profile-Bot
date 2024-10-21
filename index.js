@@ -23,6 +23,7 @@ client.on('ready', () => {
     client.user.setPresence({
       activities: [
         {
+          //name: "エラー処理中",
           name: `/profile | ${client.guilds.cache.size}サーバー`,
           type: ActivityType.Competing
         }
