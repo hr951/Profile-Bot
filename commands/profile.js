@@ -6,6 +6,7 @@ const svgToPng = require('svg-to-png');
 const { registerFont, createCanvas, loadImage } = require('canvas');
 registerFont('./Nosutaru-dotMPlusH-10-Regular.ttf', { family: 'mojang' });
 
+
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('profile')
@@ -113,7 +114,7 @@ module.exports = {
         })
               })
       } catch (error) {
-        await interact.send({content:"有効な画像ではありません。", ephemeral: true});
+        await interact.send({content:"有効な画像ではない、もしくはサイズが大きすぎる可能性があります。1920×1080以下の画像でお試しください。", ephemeral: true});
         return;
       }
     }
@@ -177,8 +178,8 @@ module.exports = {
         var height = image.height/450;
         var width = image.width/height;
           context.drawImage(img, 1485-width/2, 540, width, 450);
-          context.strokeStyle = '#0099ff';
-	        context.strokeRect(1485-width/2, 540, width, 450);
+          //context.strokeStyle = '#0099ff';
+	        //context.strokeRect(1485-width/2, 540, width, 450);
         } else if(svg_check){
         /*var img = await loadImage(global.png);
         console.log(img)
@@ -189,6 +190,7 @@ module.exports = {
 	        context.strokeRect(1485-width/2, 540, width, 450);*/
         }
         } catch (error) {
+          console.error(error)
           try {
         const img = await loadImage('https://cdn2.scratch.mit.edu/get_image/project/1042518320_480x360.png?v=1719485760')
         context.drawImage(img, 1140, 540, 705, 450);
