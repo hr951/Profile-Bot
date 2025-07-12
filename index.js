@@ -1,5 +1,3 @@
-global.ReadableStream = require('stream/web').ReadableStream;
-
 const { Client, GatewayIntentBits, Collection, ActivityType, Partials, ButtonBuilder, ButtonStyle, ActionRowBuilder, EmbedBuilder, ModalBuilder, TextInputBuilder } = require("discord.js");
 const fs = require('node:fs');
 const path = require('node:path');
