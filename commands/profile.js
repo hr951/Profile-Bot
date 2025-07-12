@@ -84,16 +84,16 @@ module.exports = {
 
     const user = interaction.user.globalName;
 
-    const ig = await loadImage('https://github.com/hr951/profile-bot/blob/main/images/instagram_icon.png?raw=true');
-    const discord = await loadImage('https://github.com/hr951/profile-bot/blob/main/images/discord_icon.png?raw=true');
-    const tt = await loadImage('https://github.com/hr951/profile-bot/blob/main/images/tiktok_icon.png?raw=true');
-    const x = await loadImage('https://github.com/hr951/profile-bot/blob/main/images/twitter_icon.png?raw=true');
-    const yt = await loadImage('https://github.com/hr951/profile-bot/blob/main/images/youtube_icon.png?raw=true');
-    const sc = await loadImage('https://github.com/hr951/profile-bot/blob/main/images/scratch_icon.png?raw=true');
+    const ig = await loadImage('./images/instagram_icon.png');
+    const discord = await loadImage('./images/discord_icon.png');
+    const tt = await loadImage('./images/tiktok_icon.png');
+    const x = await loadImage('./images/twitter_icon.png');
+    const yt = await loadImage('./images/youtube_icon.png');
+    const sc = await loadImage('./images/scratch_icon.png');
     
     var svg_check = false;
     
-    const url_bg = 'https://github.com/hr951/profile-bot/blob/main/images/background.png?raw=true';
+    const url_bg = './images/background.png';
     const backgroundImage = await loadImage(url_bg);
 
     const canvas = createCanvas(1920, 1080);
