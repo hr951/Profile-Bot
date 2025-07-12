@@ -255,7 +255,7 @@ module.exports = {
     context.drawImage(iconImage, 37, 37, 300, 300);
       } catch (error) {
         try {
-      const icon = await loadImage('https://github.com/hr951/Scratch-Stats-Bot/blob/main/images/err-icon.png?raw=true')
+      const icon = await loadImage('./images/err-icon.png')
       context.drawImage(icon, 30, 30, 200, 200);
     } catch (error) {
       console.error(error);
