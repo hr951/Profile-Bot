@@ -4,7 +4,7 @@ const fetch = require("node-fetch")
 const svg2img = require('svg2img');
 const svgToPng = require('svg-to-png');
 const { registerFont, createCanvas, loadImage } = require('canvas');
-registerFont('./Nosutaru-dotMPlusH-10-Regular.ttf', { family: 'mojang' });
+registerFont('./font/Nosutaru-dotMPlusH-10-Regular.ttf', { family: 'mojang' });
 
 
 module.exports = {
