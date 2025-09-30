@@ -8,6 +8,17 @@ registerFont('./font/Nosutaru-dotMPlusH-10-Regular.ttf', { family: 'mojang' });
 const mongoose = require('mongoose');
 const uri = "mongodb+srv://hr951:LSWyzuQJySg3@cryst.arc3wyw.mongodb.net/?retryWrites=true&w=majority&appName=Cryst";
 
+mongoose
+  .connect(uri, {
+    useNewUrlParser: true, //任意
+  })
+  .then(() => {
+    console.log('Connected DataBase!');
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+
 
 module.exports = {
     data: new SlashCommandBuilder()
