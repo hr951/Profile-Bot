@@ -7,7 +7,7 @@ const { registerFont, createCanvas, loadImage } = require('canvas');
 registerFont('./font/Nosutaru-dotMPlusH-10-Regular.ttf', { family: 'mojang' });
 const mongoose = require('mongoose');
 const uri = "mongodb+srv://hr951:LSWyzuQJySg3@cryst.arc3wyw.mongodb.net/?retryWrites=true&w=majority&appName=Cryst";
-const msgModel = require('../db/db');
+const msgModel = require('./db/db');
 
 mongoose
   .connect(uri, {
@@ -85,10 +85,10 @@ module.exports = {
 
     async execute(interaction) {
         let url_bg = "./images/background.png";
+        let bg_upgrade = false;
         try {
             let points = 0;
             let all_points = 0;
-            let bg_upgrade = false;
             const msgPoint = await msgModel.findOne({ _id: interaction.user.id });
             points = msgPoint.point;
             all_points = msgPoint.all_point;
