@@ -7,6 +7,7 @@ const { registerFont, createCanvas, loadImage } = require('canvas');
 registerFont('./font/Nosutaru-dotMPlusH-10-Regular.ttf', { family: 'mojang' });
 const mongoose = require('mongoose');
 const uri = "mongodb+srv://hr951:LSWyzuQJySg3@cryst.arc3wyw.mongodb.net/?retryWrites=true&w=majority&appName=Cryst";
+const msgModel = require('./db/db');
 
 mongoose
   .connect(uri, {
