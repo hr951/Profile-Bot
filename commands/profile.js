@@ -10,15 +10,15 @@ const uri = process.env.DB;
 const msgModel = require('../db/db');
 
 mongoose
-  .connect(uri, {
-    useNewUrlParser: true, //任意
-  })
-  .then(() => {
-    console.log('Connected DataBase!');
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+    .connect(uri, {
+        useNewUrlParser: true, //任意
+    })
+    .then(() => {
+        console.log('Connected DataBase!');
+    })
+    .catch((error) => {
+        console.log(error);
+    });
 
 
 module.exports = {
@@ -81,9 +81,9 @@ module.exports = {
     async execute(interaction) {
         let url_bg = "./images/background.png";
         let bg_upgrade = false;
+        let points = 0;
+        let all_points = 0;
         try {
-            let points = 0;
-            let all_points = 0;
             const msgPoint = await msgModel.findOne({ _id: interaction.user.id });
             points = msgPoint.point;
             all_points = msgPoint.all_point;
@@ -218,16 +218,16 @@ module.exports = {
                       context.drawImage(img, 1485-width/2, 540, width, 450);
                       context.strokeStyle = '#0099ff';
                         context.strokeRect(1485-width/2, 540, width, 450);*/
-                /*}
+            /*}
+        } catch (error) {
+            console.error(error)
+            try {
+                const img = await loadImage('https://cdn2.scratch.mit.edu/get_image/project/1042518320_480x360.png?v=1719485760')
+                context.drawImage(img, 1140, 540, 705, 450);
             } catch (error) {
-                console.error(error)
-                try {
-                    const img = await loadImage('https://cdn2.scratch.mit.edu/get_image/project/1042518320_480x360.png?v=1719485760')
-                    context.drawImage(img, 1140, 540, 705, 450);
-                } catch (error) {
-                    console.error(error);
-                }
-            }*/
+                console.error(error);
+            }
+        }*/
 
             const str = comment;
             const maxLength = 13;
@@ -253,6 +253,8 @@ module.exports = {
             context.fillText(`Minecraft ID : ${mcid}`, 75, 427.5);
             context.strokeText(`一言`, 75, 570);
             context.fillText(`一言`, 75, 570);
+            context.fillText(`所持ポイント : ${points}`, 1300, 570);
+            context.fillText(`総ポイント : ${all_points}`, 1300, 712.5);
 
             context.font = '70px "mojang"';
             context.strokeText(`${newStr}`, 130, 670);
