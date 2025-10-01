@@ -6,7 +6,7 @@ const svgToPng = require('svg-to-png');
 const { registerFont, createCanvas, loadImage } = require('canvas');
 registerFont('./font/Nosutaru-dotMPlusH-10-Regular.ttf', { family: 'mojang' });
 const mongoose = require('mongoose');
-const uri = "mongodb+srv://hr951:LSWyzuQJySg3@cryst.arc3wyw.mongodb.net/?retryWrites=true&w=majority&appName=Cryst";
+const uri = process.env.DB;
 const msgModel = require('../db/db');
 
 mongoose
@@ -33,11 +33,6 @@ module.exports = {
         .addStringOption(option =>
             option.setName('comment')
                 .setDescription('ひとことを書いてください')
-                .setRequired(true)
-        )
-        .addAttachmentOption(option =>
-            option.setName('image')
-                .setDescription('画像をアップロードしてください')
                 .setRequired(true)
         )
         .addStringOption((option) =>
