@@ -88,14 +88,14 @@ module.exports = {
             points = msgPoint.point;
             all_points = msgPoint.all_point;
             bg_upgrade = msgPoint.bg_upgrade;
+        } catch (error) {
+            console.error(error);
             if (isNaN(points)) {
                 points = 0;
             }
             if (isNaN(all_points)) {
                 all_points = 0;
             }
-        } catch (error) {
-            console.error(error);
         }
 
         interaction.reply({ content: "画像を生成しています...\nエラーが発生した場合は画像が生成されません。", ephemeral: true })
@@ -253,8 +253,10 @@ module.exports = {
             context.fillText(`Minecraft ID : ${mcid}`, 75, 427.5);
             context.strokeText(`一言`, 75, 570);
             context.fillText(`一言`, 75, 570);
-            context.fillText(`所持ポイント : ${points}`, 1300, 570);
-            context.fillText(`総ポイント : ${all_points}`, 1300, 712.5);
+            context.strokeText(`所持ポイント : ${points}`, 1200, 570);
+            context.fillText(`所持ポイント : ${points}`, 1200, 570);
+            context.strokeText(`総ポイント : ${all_points}`, 1200, 712.5);
+            context.fillText(`総ポイント : ${all_points}`, 1200, 712.5);
 
             context.font = '70px "mojang"';
             context.strokeText(`${newStr}`, 130, 670);
